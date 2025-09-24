@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <title>Frequently Asked Questions · Iași Community Portal</title>
+  <link rel="stylesheet" href="/css/style.css?v=4">
+</head>
+<body>
+  <main id="main">
+    <section class="page-hero">
+      <%- include('partials/header') %>
+
+      <h1>Frequently Asked Questions</h1>
+      <p class="muted">Find quick answers about events and activities in Iași.</p>
+      <div class="faq-controls" role="toolbar" aria-label="FAQ controls">
+        <button id="expandAll" class="btn">Expand All</button>
+        <button id="collapseAll" class="btn btn-ghost">Collapse All</button>
+      </div>
+    </section>
+
+    <section class="faq-search">
+      <label for="faqFilter" class="sr-only">Search questions</label>
+      <input id="faqFilter" placeholder="Search: opera, palas, pilates…" autocomplete="off" >
+    </section>
+
+    <section class="faq-list" id="faqList">
+      <% const _faqs = (typeof faqs !== 'undefined' && Array.isArray(faqs)) ? faqs : []; %>
+      <% _faqs.forEach(f => { %>
+        <details>
+          <summary><%= f.question %></summary>
+          <p><%= f.answer %></p>
+        </details>
+      <% }) %>
+    </section>
+
+  </main>
+
+  <script>
+    // expand/collapse all
+    const expandAll = document.getElementById('expandAll');
+    const collapseAll = document.getElementById('collapseAll');
+    const list = document.getElementById('faqList');
+
+    expandAll.addEventListener('click', () => {
+      list.querySelectorAll('details').forEach(d => d.open = true);
+    });
+    collapseAll.addEventListener('click', () => {
+      list.querySelectorAll('details').forEach(d => d.open = false);
+    });
+
+      // filter
+    const filter = document.getElementById('faqFilter');
+    filter.addEventListener('input', () => {
+      const q = filter.value.toLowerCase().trim();
+      list.querySelectorAll('details').forEach(d => {
+        const text = (d.querySelector('summary').textContent + ' ' + d.querySelector('p').textContent).toLowerCase();
+        d.style.display = text.includes(q) ? '' : 'none';
+      });
+    });
+
+      </script>
+</body>
+</html>

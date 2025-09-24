@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <link rel="stylesheet" href="/css/style.css?v=4">
+  <title><%= title || "Iași Community Portal" %></title>
+</head>
+<body class="<%= bodyClass || '' %>">
+  <%- include('partials/header') %>
+  <main>
+    <%- body %>
+  </main>
+  <%- include('partials/footer') %>
+</body>
+</html>

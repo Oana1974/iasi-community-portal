@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <title>Contact Us · Iași Community Portal</title>
+  <link rel="stylesheet" href="/css/style.css?v=4">
+</head>
+<body>
+  <main id="main" class="contact-page">
+    <section class="page-hero">
+      <%- include('partials/header') %>
+      <h1>Contact Us</h1>
+      <p class="muted">Got an event or a question? Send us a message.</p>
+    </section>
+
+    <% /* ---- SAFE GUARDS (declare once) ---- */ %>
+    <% const _errors = (typeof errors !== 'undefined' && Array.isArray(errors)) ? errors : []; %>
+    <% const _data   = (typeof data   !== 'undefined' && data) ? data : { name:'', email:'', message:'' }; %>
+    <% const _saved  = (typeof saved  !== 'undefined') ? saved : false; %>
+
+    <% if (_errors.length) { %>
+      <div class="alert">
+        <ul>
+          <% _errors.forEach(e => { %><li><%= e %></li><% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <% if (_saved) { %>
+      <p class="success">Thank you! Your message has been saved.</p>
+    <% } %>
+
+    <form id="contactForm" class="form" method="post" novalidate>
+      <label>
+        Full name
+        <input name="name" value="<%= _data.name %>" required minlength="2" >
+      </label>
+
+      <label>
+        Email
+        <input name="email" type="email" value="<%= _data.email %>" required >
+      </label>
+
+      <label>
+        Message
+        <textarea name="message" rows="5" required minlength="10"><%= _data.message %></textarea>
+      </label>
+
+      <button class="btn">Send message</button>
+      <p id="clientErrors" class="client-errors" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script src="/js/contact.js" defer></script>
+</body>
+</html>

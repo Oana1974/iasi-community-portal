@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <title>Iași Community Portal</title>
+  <link rel="stylesheet" href="/css/style.css?v=4">
+</head>
+<body>
+  <%- include("partials/header") %>
+
+  <main id="main">
+    <section class="hero">
+      <img src="/img/<%= featured.image || 'opera-open-air.jpg' %>" alt="Open-Air Gala Concert at Opera Națională Română Iași" class="hero-img" >
+      <div class="overlay">
+        <div class="overlay-inner">
+          <h2 class="event-title"><%= featured.title %></h2>
+          <p class="event-meta">
+            <%= formatDate(featured.date) %>
+            <% if (featured.time) { %> · <%= formatTime(featured.time) %><% } %>
+           · <%= featured.location %>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="credit-line">
+      <h2 class="visually-hidden">Credits</h2>
+  <p>
+    Photo source: 
+    <a href="https://cdn.romania-insider.com/sites/default/files/styles/article_large_image/public/2021-03/iasi_national_opera_facebook.jpg" target="_blank" rel="noopener">
+      romania-insider.com – National Opera Iași
+    </a>
+  </p>
+</section>
+
+    <div>
+      <p class="event-description"><%= featured.description %></p>
+    </div>
+
+    <section class="search-wrap" style="text-align:center; margin:1rem 0 1.5rem;">
+      <h2 class="visually-hidden">Search Events</h2>
+  <input id="siteSearch" placeholder="Search events (e.g., opera, canoe, pilates…)" autocomplete="off" >
+  <div id="searchResults" class="search-results" aria-live="polite"></div>
+</section>
+<script src="/js/search.js" defer></script>
+
+<!-- Quick Links -->
+<section class="quick-links">
+  <h2 class="visually-hidden">Quick Links</h2>
+  <a class="btn" href="/area/sports">Sports</a>
+  <a class="btn" href="/area/health">Health</a>
+  <a class="btn" href="/area/education">Education</a>
+  <a class="btn" href="/area/arts">Arts & Culture</a>
+  <a class="btn btn-ghost" href="/faq">FAQ</a>
+  <a class="btn btn-ghost" href="/contact">Contact</a>
+</section>
+
+<!-- Explore Areas (auto from DB) -->
+<section class="areas-grid">
+  <h2>Explore areas</h2>
+  <div class="areas">
+    <% (areas || []).forEach(a => { %>
+      <a class="area-card" href="/area/<%= a.slug %>">
+        <div class="area-bg" style="background-image:url('/img/<%= a.slug %>.jpg')"></div>
+        <div class="area-body">
+          <h3><%= a.name %></h3>
+          <p><%= a.description %></p>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+</section>
+
+  </main>
+
+  <%- include("partials/footer") %>
+</body>
+
+</html>

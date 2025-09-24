@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= area.name %> · Iași Community Portal</title>
+  <link rel="stylesheet" href="/css/style.css?v=4">
+</head>
+<body>
+  <main id="main">
+    <section class="page-hero">
+      <%- include('partials/header') %>
+
+      <h1><%= area.name %> in Iași</h1>
+      <p><%= area.description %></p>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters" aria-label="Filters">
+      <label>Year
+        <select id="yearSel">
+          <option value="" selected>All</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+        </select>
+      </label>
+
+      <fieldset class="cats">
+        <legend>Categories</legend>
+        <label><input type="checkbox" name="cat" value="concert"   checked> Concert</label>
+        <label><input type="checkbox" name="cat" value="sports"    checked> Sports</label>
+        <label><input type="checkbox" name="cat" value="wellness"  checked> Wellness</label>
+        <label><input type="checkbox" name="cat" value="education" checked> Education</label>
+      </fieldset>
+    </section>
+
+    <!-- Two-column layout: Upcoming | Past -->
+    <section class="two-col">
+      <div>
+        <h2>Upcoming</h2>
+        <div id="upcomingGrid" class="grid">
+          <% if (typeof upcoming !== 'undefined') { %>
+            <% if (upcoming.length === 0) { %>
+              <p class="muted">No upcoming events.</p>
+            <% } %>
+            <% upcoming.forEach(e => { %>
+              <article class="card">
+                <img src="/img/<%= e.image || 'opera-open-air.jpg' %>" alt="<%= e.title %>">
+                <div class="card-body">
+                  <h3><a href="/event/<%= e.id %>"><%= e.title %></a></h3>
+                  <p class="muted"><%= formatDate(e.date) %>
+                                  <% if (e.time) { %> · <%= formatTime(e.time) %><% } %>
+                                  · <%= e.location %></p>
+                  <span class="badge"><%= e.category %></span>
+                </div>
+              </article>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+
+      <div>
+        <h2>Past</h2>
+        <div id="pastGrid" class="grid">
+          <% if (typeof past !== 'undefined') { %>
+            <% if (past.length === 0) { %>
+              <p class="muted">No past events yet.</p>
+            <% } %>
+            <% past.forEach(e => { %>
+              <article class="card">
+                <img src="/img/<%= e.image || 'opera-open-air.jpg' %>" alt="<%= e.title %>" >
+                <div class="card-body">
+                  <h3><a href="/event/<%= e.id %>"><%= e.title %></a></h3>
+                  <p class="muted"><%= formatDate(e.date) %>
+                                    <% if (e.time) { %> · <%= formatTime(e.time) %><% } %>
+                                    · <%= e.location %></p>
+                  <span class="pill">Past</span>
+                </div>
+              </article>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+    </section>
+
+    <script src="/js/area-filters.js" defer></script>
+  </main>
+</body>
+</html>

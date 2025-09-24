@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <title><%= event.title %> · Iași Community Portal</title>
+  <link rel="stylesheet" href="/css/style.css?v=4">
+</head>
+<body>
+  <main id="main">
+    <section class="page-hero">
+      <%- include('partials/header') %>
+      
+      <h1><%= event.title %></h1>
+      <p class="muted">
+        <%= formatDate(event.date) %>
+        <% if (event.time) { %> · <%= formatTime(event.time) %><% } %>
+        · <%= event.location %>
+      </p>
+      <% if (occurred) { %><span class="pill">Already occurred</span><% } %>
+    </section>
+
+    <figure class="event-figure">
+  <img src="/img/<%= event.image %>" alt="<%= event.title %>" >
+
+  <% if (event.photo_credit) { %>
+    <p class="photo-credit">Photo: <%= event.photo_credit %></p>
+  <% } %>
+</figure>
+    <div>
+      <p class="event-description"><%= event.description %></p>
+    </div>
+  </main>
+</body>
+</html>

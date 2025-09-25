@@ -83,14 +83,7 @@ app.get('/area/:slug', (req, res) => {
 
 // EVENT BY ID: /event/:id
 app.get('/event/:id', (req, res) => {
-  const event = db.prepare(`
-    SELECT e.*, a.name AS area_name
-    FROM events e JOIN areas a ON a.id = e.area_id
-    WHERE e.id = ?
-  `).get(Number(req.params.id));
-  if (!event) return res.status(404).send('Event not found');
-  const occurred = new Date(event.date) < new Date();
-  res.render('event', { event, occurred });
+  res.redirect(301, `/events/${req.params.id}`);
 });
 
 // FAQ (pass data so faq.ejs never crashes)
@@ -201,6 +194,84 @@ app.get('/api/area/:slug/events', (req, res) => {
 // Kids Quiz page
 app.get("/activity", (req, res) => {
   res.render("activity"); 
+});
+
+  // Event detail page
+app.get("/events/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const ev = db.prepare(`
+    SELECT id, area_id, title, description, date, time, location,
+           category, is_featured, image, photo_credit
+    FROM events WHERE id = ?
+  `).get(id);
+
+  if (!ev) return res.status(404).send("Event not found.");
+
+  const now = new Date();
+  const when = new Date(`${ev.date}${ev.time ? 'T'+ev.time : ''}`);
+  const occurred = when < now;
+
+  // Pass helpers to event.ejs
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return isNaN(d) ? iso : d.toLocaleDateString('ro-RO', { year:'numeric', month:'long', day:'numeric' });
+  }
+  function formatTime(hm) {
+    return (hm || '').slice(0,5);
+  }
+
+  res.render("event", { event: ev, occurred, formatDate, formatTime });
+});
+
+// Event listing page
+app.get("/events", (req, res) => {
+  res.render("events");
+});
+
+// GET /api/events?year=2025&cats=Concert,Sports&q=opera
+app.get("/api/events", (req, res) => {
+  const year = (req.query.year || "").trim();       // "All" or "2025" or ""
+  const cats = (req.query.cats || "").trim();       // "Concert,Sports" or ""
+  const q    = (req.query.q || "").trim();
+
+  let sql = `
+    SELECT id, title, date, time, location, category, image, description
+    FROM events
+    WHERE 1=1
+  `;
+  const params = [];
+
+  // YEAR: if provided & not All, filter by year; otherwise show all years
+  if (year && year !== "All") {
+    sql += ` AND substr(date, 1, 4) = ?`;   // works for YYYY-MM-DD
+    params.push(year);
+  }
+
+  // CATEGORIES: case-insensitive
+  if (cats) {
+    const arr = cats.split(",").map(s => s.trim()).filter(Boolean);
+    if (arr.length) {
+      sql += ` AND lower(category) IN (${arr.map(() => "?").join(",")})`;
+      params.push(...arr.map(x => x.toLowerCase()));
+    }
+  }
+
+  // SEARCH: case-insensitive
+  if (q) {
+    const like = `%${q.toLowerCase()}%`;
+    sql += ` AND (lower(title) LIKE ? OR lower(location) LIKE ? OR lower(description) LIKE ?)`;
+    params.push(like, like, like);
+  }
+
+  sql += ` ORDER BY date DESC, time DESC LIMIT 200`;
+
+  try {
+    const rows = db.prepare(sql).all(...params);
+    res.json(rows);
+  } catch (err) {
+    console.error("API /api/events error", err, { sql, params });
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 const PORT = 5000;

@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= event.title %> · Iași Community Portal</title>
   <link rel="stylesheet" href="/css/style.css?v=4">
 </head>
 <body>
+  <!-- Always keep header outside hero section -->
+  <%- include('partials/header') %>
+
   <main id="main">
     <section class="page-hero">
-      <%- include('partials/header') %>
-      
+      <p><a href="/events?year=<%= event.date.slice(0,4) %>" class="pill">← Back to Events</a></p>
+
       <h1><%= event.title %></h1>
       <p class="muted">
         <%= formatDate(event.date) %>
         <% if (event.time) { %> · <%= formatTime(event.time) %><% } %>
-        · <%= event.location %>
+        <% if (event.location) { %> · <%= event.location %><% } %>
       </p>
-      <% if (occurred) { %><span class="pill">Already occurred</span><% } %>
+
+      <% if (occurred) { %>
+        <span class="pill">Already occurred</span>
+      <% } else { %>
+        <span class="pill" style="background:#22c55e">Upcoming</span>
+      <% } %>
     </section>
 
     <figure class="event-figure">
-  <img src="/img/<%= event.image %>" alt="<%= event.title %>" >
+      <!-- Fallback if no image in DB -->
+      <img src="<%= event.image ? '/img/'+event.image : '/img/placeholder-wide.jpg' %>"
+           alt="<%= event.title %>">
 
-  <% if (event.photo_credit) { %>
-    <p class="photo-credit">Photo: <%= event.photo_credit %></p>
-  <% } %>
-</figure>
-    <div>
+      <% if (event.photo_credit) { %>
+        <figcaption class="photo-credit">Foto: <%= event.photo_credit %></figcaption>
+      <% } %>
+    </figure>
+
+    <section class="event-body">
       <p class="event-description"><%= event.description %></p>
-    </div>
+    </section>
   </main>
 </body>
 </html>

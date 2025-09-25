@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Events · Iași Community Portal</title>
+  <link rel="stylesheet" href="/css/style.css?v=4">
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main id="main" class="events-page">
+    <h1>Community Events</h1>
+
+    <form class="filters" id="eventFilters" onsubmit="return false;">
+      <label>Year
+        <select id="fYear">
+          <option>All</option>
+          <% const thisYear = new Date().getFullYear(); %>
+          <% for (let y = thisYear; y >= thisYear - 5; y--) { %>
+            <option value="<%= y %>" <%= y===thisYear?'selected':'' %>><%= y %></option>
+          <% } %>
+        </select>
+      </label>
+
+      <fieldset>
+        <legend>Categories</legend>
+        <!-- Values must match exactly your DB values in events.category -->
+        <label><input type="checkbox" name="cat" value="Concert" checked> Concert</label>
+        <label><input type="checkbox" name="cat" value="Sports" checked> Sports</label>
+        <label><input type="checkbox" name="cat" value="Wellness" checked> Wellness</label>
+        <label><input type="checkbox" name="cat" value="Education" checked> Education</label>
+      </fieldset>
+
+      <label>Search
+        <input id="fQuery" placeholder="Title, venue…">
+      </label>
+    </form>
+
+    <ul id="eventList" class="event-list" aria-live="polite"></ul>
+  </main>
+
+  <script src="/js/events-list.js"></script>
+</body>
+</html>

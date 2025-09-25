@@ -342,7 +342,6 @@ main {
   margin-right: auto;
 }
 .grid { gap: 1.2rem; }
-
 /* ===== HOME — Explore Areas ===== */
 .areas-grid .areas {
   display: grid;
@@ -548,7 +547,7 @@ main{
   border-radius: 0 !important;
 }
 
-/* banner wrapper should expand too */
+/* banner wrapper */
 .site-banner__inner,
 .page-hero,
 .credit-line,
@@ -612,7 +611,7 @@ main{
   display: block !important;
 }
 
-/* (optional) full-bleed hero on pages that have one */
+/* full-bleed hero on pages that have one */
 .hero{ margin-left: calc(50% - 50vw) !important; margin-right: calc(50% - 50vw) !important; }
 .hero-img{ width: 100vw !important; max-height: 55vh !important; object-fit: cover !important; border-radius: 0 !important; }
 
@@ -674,31 +673,31 @@ main{
 /* === Fixed top-left logo (always visible) === */
 .fixed-site-logo {
   position: fixed;
-  top: 0;             /* aligns with the very top */
-  left: 0;            /* left edge */
-  width: 200px;       /* make it larger, adjust as you like */
+  top: 0;             
+  left: 0;            
+  width: 200px;       
   height: auto;
-  z-index: 1000;      /* stays above everything */
-  margin: 0;          /* remove extra gap */
-  padding: 0;         /* remove padding */
+  z-index: 1000;      
+  margin: 0;          
+  padding: 0;         
 }
 
 
 .fixed-site-logo img {
-  height: 120px;       /* make logo bigger */
+  height: 120px;       
   width: auto;
   display: block;
-  margin-top: 8px;     /* push down a bit so it aligns nicely with gradient box */
+  margin-top: 8px;     
   filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
 }
 
-/* Nice hover effect (optional) */
+/* hover effect */
 .fixed-site-logo:hover img{
   transform: scale(1.04);
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.28));
 }
 
-/* Keep it comfortable on smaller screens */
+
 @media (max-width: 900px){
   .fixed-site-logo img{ height: 84px; }
 }
@@ -706,7 +705,7 @@ main{
   .fixed-site-logo img{ height: 64px; }
 }
 
-/* Make sure page content never hides the logo */
+
 .site-banner, .page-hero, #main {
   position: relative;
   z-index: 1;
@@ -745,9 +744,9 @@ main{
 /* === FINAL: fixed corner logo === */
 a.fixed-site-logo{
   position: fixed !important;
-  top: 5px !important;      /* tweak to align with the gradient box */
-  left: 5px !important;     /* tweak as you like */
-  z-index: 2000 !important;  /* above everything */
+  top: 5px !important;      
+  left: 5px !important;     
+  z-index: 2000 !important;  
   display: block !important;
   line-height: 0 !important;
   margin: 0 !important;
@@ -755,7 +754,7 @@ a.fixed-site-logo{
 }
 
 a.fixed-site-logo img{
-  width: 240px !important;   /* make it bigger/smaller as you need */
+  width: 240px !important;   
   height: auto !important;
   display: block !important;
   filter: drop-shadow(0 10px 20px rgba(0,0,0,.18));
@@ -768,9 +767,9 @@ a.fixed-site-logo img{
 
 /* === Site title (header) – final, authoritative rule === */
 .site-banner .site-name {
-  color: #fff !important;     /* force white text */
+  color: #fff !important;     
   text-shadow: 0 2px 6px rgba(0,0,0,.3);
-  background: linear-gradient(90deg, #7b2cbf, #2a9d8f); /* your gradient bar */
+  background: linear-gradient(90deg, #7b2cbf, #2a9d8f); 
   display: inline-block;
   padding: 0.75rem 2rem;
   border-radius: 14px;
@@ -780,14 +779,14 @@ a.fixed-site-logo img{
 .site-banner {
   background: linear-gradient(90deg, purple, green);
   padding: 1rem;
-  border-radius: 20px; /* optional, rounded corners */
+  border-radius: 20px; 
   text-align: center;
 }
 
 /* style only the text */
 .site-name {
-  background: none;       /* remove inner gradient */
-  color: white;           /* white text */
+  background: none;       
+  color: white;           
   text-shadow: 0 2px 6px rgba(0,0,0,0.3);
   font-weight: 800;
   display: inline-block;
@@ -798,3 +797,204 @@ a.fixed-site-logo img{
   padding:0!important;border:0!important;height:1px!important;width:1px!important;
   overflow:hidden!important;white-space:nowrap!important;
 }
+
+/* Header layout */
+.site-bar {
+  background: transparent; 
+  padding: .5rem 1rem;
+}
+
+.site-bar__inner{
+  max-width: var(--mx, 1100px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+.site-name{
+  background: linear-gradient(135deg,#7b1fa2,#26a69a);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing:.5px;
+  padding: .6rem 1rem;
+  border-radius: 16px;
+  margin: 0;               /* keep it tight */
+  white-space: nowrap;
+}
+
+
+.site-nav{ 
+  margin-left: auto;
+  display: flex;
+  gap: .5rem;
+}
+
+/* Cloud / pill buttons */
+.site-nav .pill{
+  display: inline-block;
+  padding: .5rem .9rem;
+  border-radius: 9999px;         
+  background: #ffffff;
+  text-decoration: none;
+  color: #0f172a;                
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  border: 1px solid rgba(0,0,0,.06);
+  transition: transform .08s ease, box-shadow .15s ease, background .15s ease;
+}
+.site-nav .pill:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+.site-nav .pill:focus{
+  outline: 3px solid #a5b4fc;
+  outline-offset: 2px;
+}
+
+.site-nav{ 
+  margin-left: auto;
+}
+
+.site-nav .pill{
+  display: inline-block;
+  padding: .5rem 1rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  text-decoration: none;
+  color: #0f172a;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  border: 1px solid rgba(0,0,0,.06);
+  transition: transform .08s ease, box-shadow .15s ease, background .15s ease;
+}
+.site-nav .pill:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+
+/* === QUIZ PAGE LAYOUT === */
+.quiz-page{
+  max-width: var(--mx, 1100px);
+  margin: 1rem auto 2rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;      /* left quiz, right images */
+  gap: 1rem;
+}
+
+/* Quiz card */
+.quiz-card{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  padding:1.25rem;
+}
+
+.quiz-title{
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin:0 0 .25rem;
+}
+
+.quiz-meta{
+  display:flex; gap:1rem; opacity:.75; margin-bottom:.75rem;
+}
+
+/* Progress bar */
+.quiz-progress{height:10px; background:#eef2ff; border-radius:9999px; overflow:hidden; margin:.25rem 0 1rem}
+.quiz-progress__bar{height:100%; width:0; background:#60a5fa}
+
+/* Question + answers */
+.quiz-question{
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  margin:.25rem 0 .5rem;
+}
+.quiz-answers{
+  display:grid; gap:.6rem; margin:.5rem 0 1rem;
+}
+.quiz-answers button{
+  padding:.7rem 1rem;
+  border-radius:12px;
+  border:1px solid #e5e7eb;
+  background:#f8fafc;
+  cursor:pointer;
+  font-size:1rem;
+}
+.quiz-answers button:focus{outline:3px solid #a5b4fc; outline-offset:2px}
+
+/* Feedback + controls */
+.quiz-feedback{min-height:1.4rem; margin:.25rem 0 .5rem; font-weight:600}
+.quiz-controls{display:flex; align-items:center; gap:.75rem}
+.quiz-controls .spacer{flex:1}
+
+/* Buttons */
+.btn{
+  background:#2563eb; color:#fff; border:none;
+  padding:.7rem 1rem; border-radius:9999px; cursor:pointer;
+  box-shadow:0 4px 14px rgba(37,99,235,.25);
+}
+.btn:hover{filter:brightness(1.05)}
+.btn.ghost{
+  background:#fff; color:#0f172a; border:1px solid #e5e7eb;
+}
+
+/* Right column gallery */
+.quiz-side{display:grid; gap:1rem; align-content:start}
+.side-card{
+  background:#fff; border-radius:16px; overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.side-card img{display:block; width:100%; height:auto}
+.side-card figcaption{padding:.5rem .75rem; font-size:.95rem; opacity:.85}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 900px){
+  .quiz-page{grid-template-columns: 1fr}
+  .quiz-side{grid-template-columns: 1fr 1fr}
+}
+@media (max-width: 600px){
+  .quiz-side{grid-template-columns: 1fr}
+}
+
+.site-nav .pill{ background:#0d9d42; color:#113a1a; }
+.site-nav .pill:hover{ filter:brightness(1.05) }
+
+/* === QUIZ TWEAKS === */
+
+.quiz-page{
+  max-width: 1100px;                 
+  grid-template-columns: 620px 450px;
+  gap: .65rem;                        
+  align-items: start;
+}
+
+.quiz-card{
+  padding: 1rem;                      
+}
+
+.quiz-answers button{
+  padding: .6rem .9rem;               
+  font-size: 1rem;
+}
+
+.quiz-side{ gap: .75rem; }            
+
+.side-card img{
+  height: 150px;                      
+  width: 100%;
+  object-fit: cover;                  
+}
+
+/* Right-side gallery as 2 columns */
+.quiz-side{
+  display: grid;
+  grid-template-columns: 1fr 1fr;  
+  gap: .75rem;
+}
+
+.side-card img{
+  height: 140px;     
+  width: 100%;
+  object-fit: cover; 
+}
+

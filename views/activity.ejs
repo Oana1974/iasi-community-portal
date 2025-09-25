@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kids Quiz · Iași Community Portal</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main class="quiz-page" aria-live="polite">
+    <!-- LEFT: Quiz card -->
+    <section class="quiz-card">
+      <h1 class="quiz-title">Education Quiz</h1>
+      <p class="quiz-meta">
+        <span id="qIndex">Question 1 of 8</span>
+        <span>Score: <strong id="score">0</strong></span>
+      </p>
+
+      <div class="quiz-progress" aria-hidden="true"><div id="bar" class="quiz-progress__bar"></div></div>
+
+      <h2 id="question" class="quiz-question">Loading…</h2>
+      <div id="answers" class="quiz-answers" role="group" aria-labelledby="question"></div>
+
+      <p id="feedback" class="quiz-feedback" aria-live="polite"></p>
+
+      <div class="quiz-controls">
+        <button id="skipBtn" type="button" class="btn ghost">Skip</button>
+        <div class="spacer"></div>
+        <button id="nextBtn" type="button" class="btn" style="display:none;">Next</button>
+        <button id="restartBtn" type="button" class="btn" style="display:none;">Play again</button>
+      </div>
+    </section>
+
+    <!-- RIGHT: Image column -->
+    <aside class="quiz-side" aria-label="Gallery">
+      <figure class="side-card">
+        <img src="/img/quiz/reading.jpg" alt="Kids reading in library">
+        <figcaption>Love reading</figcaption>
+      </figure>
+      <figure class="side-card">
+        <img src="/img/quiz/planet.jpg" alt="Mars illustration">
+        <figcaption>Explore planets</figcaption>
+      </figure>
+      <figure class="side-card">
+        <img src="/img/quiz/badminton.jpg" alt="Badminton shuttlecock">
+        <figcaption>Try new sports</figcaption>
+      </figure>
+        <figure class="side-card">
+    <img src="/img/quiz/healthy-food.jpg" alt="Healthy food choices">
+    <figcaption>Eat healthy</figcaption>
+  </figure>
+    </aside>
+  </main>
+
+  <script src="/js/activity.js"></script>
+</body>
+</html>

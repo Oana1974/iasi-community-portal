@@ -198,6 +198,11 @@ app.get('/api/area/:slug/events', (req, res) => {
   res.json({ area: { id: area.id, name: area.name, slug: area.slug }, upcoming, past });
 });
 
+// Kids Quiz page
+app.get("/activity", (req, res) => {
+  res.render("activity"); 
+});
+
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Iași portal running at http://localhost:${PORT}`);
